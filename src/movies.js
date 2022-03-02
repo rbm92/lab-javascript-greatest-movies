@@ -49,7 +49,7 @@ function dramaMoviesScore() {
 console.log('\n4. Average score of Drama movies:');
 console.log(dramaMoviesScore());
 
-// Iteration 5: Ordering by year - Order by year, ascending (in growing order)
+// // Iteration 5: Ordering by year - Order by year, ascending (in growing order)
 function orderByYear() {
   const orderYear = movies.sort((a, b) => {
     if (a.year > b.year) return 1;
@@ -74,25 +74,26 @@ console.log('\n6. Movies ordered by title:');
 console.log(orderAlphabetically());
 
 // BONUS - Iteration 7: Time Format - Turn duration of the movies from hours to minutes
-// function turnHoursToMinutes() {
-//   const rawList = movies.map(movie => movie);
-//   const getMinutes = rawList.forEach(movie => {
-//     const hours = movie.duration.split('h')[0];
-//     console.log(hours);
-//     const mins = movie.duration.split(' ')[1].split('min')[0];
-//     const totalMin = Number(mins) + Number(hours * 60);
-//     movie.duration = totalMin;
-//   });
-//   return getMinutes;
-// }
+function turnHoursToMinutes() {
+  movies.forEach(movie => {
+    const hours = movie.duration.split('h')[0];
+    let minsRaw = movie.duration.split('h')[1];
+    if (minsRaw == '') minsRaw = ' 0min';
+    const mins = minsRaw.split('min')[0].trim();
+    const totalMin = Number(hours) * 60 + Number(mins);
+    movie.duration = totalMin.toFixed() + 'min';
+    console.log(movie.duration);
+  });
+  return movies;
+}
 
-// console.log('\n7. Time format changed to minutes:');
-// console.log(turnHoursToMinutes());
+console.log('\n7. Time format changed to minutes:');
+console.log(turnHoursToMinutes());
 
 // BONUS - Iteration 8: Best yearly score average - Best yearly score average
 function bestYearAvg() {
 
- }
+}
 
 // console.log('\n8. Best yearly score average:');
 // console.log(bestYearAvg());
