@@ -82,7 +82,6 @@ function turnHoursToMinutes() {
     const mins = minsRaw.split('min')[0].trim();
     const totalMin = Number(hours) * 60 + Number(mins);
     movie.duration = totalMin.toFixed() + 'min';
-    console.log(movie.duration);
   });
   return movies;
 }
@@ -92,11 +91,60 @@ console.log(turnHoursToMinutes());
 
 // BONUS - Iteration 8: Best yearly score average - Best yearly score average
 function bestYearAvg() {
+  orderByYear();
 
+  let scoreArr = [];
+  let countArr = [];
+  let scoreAvgArr = [];
+  let yearArr = [];
+
+  let score = 0;
+  let count = 0;
+
+  for (let i = 0; i < movies.length; i++) {
+    if (i === 0) {
+      score += movies[0].score;
+      count++;
+    }
+
+    else if (movies[i].year !== movies[i - 1].year) {
+      scoreArr.push(score);
+      countArr.push(count);
+      yearArr.push(movies[i - 1].year)
+      score = 0;
+      count = 0;
+    }
+
+    else {
+      score += movies[i].score;
+      count++;
+    };
+  }
+  // console.log(scoreArr);
+  // console.log(countArr);
+
+  for (let i = 0; i < scoreArr.length; i++) {
+    if (scoreArr[i] === 0 || countArr[i] === 0) scoreAvgArr[i] = 0;
+
+    else {
+      scoreAvgArr[i] = scoreArr[i] / countArr[i];
+    }
+  }
+
+  // console.log(scoreAvgArr);
+  // console.log(yearArr);
+  const maxScoreAvg = Math.max(...scoreAvgArr);
+  // console.log(maxScoreAvg);
+  const index = scoreAvgArr.indexOf(maxScoreAvg)
+  // console.log(index);
+  const bestYear = yearArr[index];
+  // console.log(bestYear);
+
+  return {bestYear, maxScoreAvg}
 }
 
-// console.log('\n8. Best yearly score average:');
-// console.log(bestYearAvg());
+console.log('\n8. Best yearly score average:');
+console.log(bestYearAvg());
 
 // The following is required to make unit tests work.
 /* Environment setup. Do not modify the below code. */
